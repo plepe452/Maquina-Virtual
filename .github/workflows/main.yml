@@ -9,6 +9,13 @@ jobs:
     timeout-minutes: 3600
 
     steps:
+      - name: Update Windows and Drivers
+        run: |
+          Install-Module PSWindowsUpdate -Force
+          Import-Module PSWindowsUpdate
+          # Instala todas las actualizaciones disponibles, incluyendo drivers
+          Get-WindowsUpdate -AcceptAll -Install -AutoReboot
+
       - name: Configure Core RDP Settings
         run: |
           # Enable Remote Desktop and disable Network Level Authentication (if needed)
